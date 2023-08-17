@@ -1,0 +1,70 @@
+print("why the fuck does github take forever to update sometimes :/")
+
+--whitelist--
+local StarterGui = game:GetService("StarterGui")
+local Notify = function(_Title, _Text, Time)
+    StarterGui:SetCore("SendNotification",{
+        Title = _Title,
+         Text = _Text,
+         Icon = "rbxassetid://2541869220",
+         Duration = Time
+    })
+end
+local whitelist = {
+    "ac5b705323f3a9852c0bf524ecd0281c600c89fb8936bb0d7eb93531298cd650",
+    "b414b4cc56b6a572ed467b032dfc8ecd95bfff3f60522a8f1b3673f344a28cbb",
+    "c7383ed5d3fe03c17deb610f4d783bf9923eed337b371e6b896b52be409caf16",
+    "aaf2fd1ebccde060e6bebcfee3019d2c044579e331e10437bb1ef591cf3a4e55",
+    "47b86e4216c80f91da08e9cd85ea6d8f",
+    "D19E43A051885B08FCAE9728F71C7A60E1A4",
+    "ec2ea9733cc1a155f898037245637ed1c8eb12a79bc01d45c821440017a4aed6",
+    "515a571ddf5ec74f91ee271248b8a63f",
+    "C7B45BB80A8457489E46DF801BECC770BF5C",
+    "f6fa4b995ca661a6057ef019cebc6afafd5bd269d322a459c7dc683791bce538", 
+    "32ca8d448e66d4786bc3effe407fd21ac12c213c32eed2056cab9c02621e0b90",
+    "D8903A045BFAB640FC6E0E2C6D2E3B401004",
+}
+Notify("Notice", "Recomended : Electron.", 1)
+function isListed(hwid)
+    local listed = false
+    for i, v in pairs(whitelist) do
+        if v == hwid then
+            listed = true
+            break
+        end
+    end
+    return listed
+end
+if not IsElectron and not IsValyse then
+    local http_request = syn and syn.request or request or fluxus.request
+    local body = http_request({Url = "https://httpbin.org/get", Method = "GET"}).Body
+    local decoded = game:GetService("HttpService"):JSONDecode(body)
+    hwid = (
+        decoded.headers["Syn-Fingerprint"] or decoded.headers["Flux-Fingerprint"] or decoded.headers["Exploit-Guid"] or
+        decoded.headers["Proto-User-Identifier"] or
+        decoded.headers["Sentinel-Fingerprint"] or
+        decoded.headers["Krnl-Fingerprint"]
+    )
+end
+if hwid ~= nil then
+    if isListed(hwid) then
+        Notify("Notice", "You are whitelisted", 4)
+-- mv = main version
+-- cv = current version
+writefile("version.txt",game:HttpGet("https://raw.githubusercontent.com/config-loader/loading/main/version.txt"))
+local mv = readfile('version.txt')
+local cv = "23"
+
+if cv ~= mv then 
+game.Players.LocalPlayer:Kick("OUTDATED VERSION,PLEASE UPDATE. Error code:3")
+elseif cv == mv then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/config-loader/loading/main/key",true))()
+end
+    else
+        Notify("Notice", "You aren't whitelisted", 4)
+        setclipboard(hwid)
+    end
+else
+    print("nil",hwid)
+    Notify("Whitelist", "Nil", 4)
+end
