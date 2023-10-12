@@ -1,8 +1,3 @@
-getgenv().cmdbarprefix = Enum.KeyCode.Minus -- https://create.roblox.com/docs/en-us/reference/engine/enums/KeyCode
-getgenv().selectedprefix = ">" -- use ;, : , / , etc.
-
-
-
 --1st open source project is crazy
 
 if getgenv().executed == true then warn("\nadmin is already running\nadmin is already running\nadmin is already running\nadmin is already running") return end
