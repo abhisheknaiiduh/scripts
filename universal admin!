@@ -1,0 +1,677 @@
+
+
+
+
+--1st open source project is crazy
+
+if getgenv().executed == true then warn("\nadmin is already running\nadmin is already running\nadmin is already running\nadmin is already running") return end
+
+getgenv().executed = true
+
+local rs = game.RunService
+
+local loopgotoplayer = {}
+
+local whitelist = {
+game.Players.LocalPlayer.Name
+}
+
+local cmdslist = {
+"goto (plr)",
+"loopgoto (plr)",
+"unloopgoto",
+"speed (num)",
+"cmds",
+"sit",
+"lay",
+"carpetloopgoto (plr)",
+"uncarpetloopgoto",
+}
+
+local plugins = {}
+
+function loadplugin(file)
+if isfile("Revs admin/Plugins/"..file.."") or isfile("Revs admin/Plugins/"..file..".txt") or isfile("Revs admin/Plugins/"..file..".lua") then
+newtxtlabel(file)
+if not isfile("Revs admin/auto/Plugins.txt") then
+writefile("Revs admin/auto/Plugins.txt",file)
+else
+z = readfile("Revs admin/auto/Plugins.txt")
+writefile("Revs admin/auto/Plugins.txt",""..z..", "..file.."")
+end
+else
+print("file not found")
+end
+end
+                
+if not isfile("Revs admin") then
+makefolder("Revs admin")
+end
+
+if not isfile("Revs admin/Plugins") then
+makefolder("Revs admin/Plugins")
+end
+
+if not isfile("Revs admin/info.txt") then
+writefile("Revs admin/info.txt","Revs admin made by jude_or_rev")
+end
+
+                
+if not isfile("Revs admin/auto") then
+makefolder("Revs admin/auto")
+end
+
+if isfile("Revs admin/auto/Plugins.txt") then
+z = readfile("Revs admin/auto/Plugins.txt")
+args = z:split(", ")
+for i,v in(args) do
+table.insert(plugins,args[i])
+end
+end
+
+print("plugins:")
+for _,v in(plugins) do
+print(v)
+end
+
+print("there are "..#cmdslist.." cmds..")
+print("there are "..#plugins.." plugins loaded..")
+
+function cmdgui()
+print("there are "..#cmdslist.." cmds..")
+local cmdui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
+local TextButton = Instance.new("TextButton")
+
+function newtxtlabel(cmd)
+print(cmd)
+local z = Instance.new("TextLabel",ScrollingFrame)
+
+z.BackgroundTransparency = 1
+z.BorderColor3 = Color3.fromRGB(0, 0, 0)
+z.BorderSizePixel = 0
+z.Size = UDim2.new(1, 0, 0, 25)
+z.Text = cmd
+z.TextColor3 = Color3.fromRGB(255, 255, 255)
+z.TextSize = 14.000
+z.TextScaled = true
+end
+
+
+
+cmdui.Name = "cmd ui"
+cmdui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+cmdui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Draggable = true
+Frame.Selectable = true
+Frame.Active = true
+Frame.Parent = cmdui
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.LayoutOrder = 1
+Frame.Position = UDim2.new(0.2941944, 0, 0.1463736, 0)
+Frame.Size = UDim2.new(0, 229, 0, 30)
+
+
+
+
+ScrollingFrame.Parent = Frame
+ScrollingFrame.BackgroundTransparency = 0.5
+ScrollingFrame.Active = true
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ScrollingFrame.BorderSizePixel = 0
+ScrollingFrame.Position = UDim2.new(0, 0, 1, 0)
+ScrollingFrame.Size = UDim2.new(0, 229, 0, 366)
+ScrollingFrame.AutomaticCanvasSize = 'Y'
+ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+UIListLayout.Parent = ScrollingFrame
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0,3)
+
+
+TextButton.Parent = Frame
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.999529302, 0, -0.0665610209, 0)
+TextButton.Size = UDim2.new(0, 52, 0, 50)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "X"
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextWrapped = true
+
+-- Scripts:
+
+local function DNMOB_fake_script() -- TextButton.LocalScript 
+	local script = Instance.new('LocalScript', TextButton)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		print("closing")
+		cmdui:Destroy()
+	end)
+end
+coroutine.wrap(DNMOB_fake_script)()
+
+
+for i,v in pairs(cmdslist) do
+newtxtlabel(v)
+end
+
+newtxtlabel("")
+newtxtlabel("your plugins:")
+function loadplugs()
+if isfile("Revs admin/auto/Plugins.txt") then
+z = readfile("Revs admin/auto/Plugins.txt")
+args = z:split(", ")
+for i,v in(args) do
+newtxtlabel(args[i])
+end
+end
+end
+    
+loadplugs()
+
+end
+
+
+print("cmds are:")
+for _,v in pairs(cmdslist) do
+print(v)
+end
+
+
+
+
+function getPlayer(name)
+local targets = {}
+local plrstbl = game.Players:GetPlayers()
+if name == "me" then
+return {game.Players.LocalPlayer}
+elseif name == "others" then
+for i, v in pairs(plrstbl) do
+if v ~= game.Players.LocalPlayer then
+targets[#targets + 1] = v
+end
+end
+elseif name == "all" then
+for i, v in pairs(plrstbl) do
+targets[#targets + 1] = v
+end
+elseif name == "random" then
+for i, v in pairs(plrstbl) do
+if v ~= game.Players.LocalPlayer then
+return {plrstbl[math.random(1,#plrstbl)]}
+end
+end
+else
+name = name:lower()
+for i, v in pairs(game.Players:GetPlayers()) do
+if v.Name:lower():find(name) or v.DisplayName:lower():find(name) then
+return {v}
+end
+end
+end
+return targets
+end
+
+function veryepictrol(x)
+local prefix = getgenv().selectedprefix
+local d,d1;d = x.Chatted:Connect(function(msg)
+msg = msg:lower()
+if string.sub(msg, 1, 3) == "/e " then
+msg = string.sub(msg, 4)
+end
+if string.sub(msg, 1, 1) == prefix then
+local cmd
+local space = string.find(msg, " ")
+if space then
+cmd = string.sub(msg, 2, space - 1)
+else
+cmd = string.sub(msg, 2)
+end
+
+for _,v in pairs(plugins) do
+if cmd == v then
+if space ~= nil then
+Who = string.sub(msg,space+1)
+target = getPlayer(Who)[1]
+end
+
+if isfile("Revs admin/Plugins/"..v.."") then
+loadstring(readfile("Revs admin/Plugins/"..v..""))()
+elseif isfile("Revs admin/Plugins/"..v..".txt") then
+loadstring(readfile("Revs admin/Plugins/"..v..".txt"))()
+else
+loadstring(readfile("Revs admin/Plugins/"..v..".lua"))()
+end
+end
+end
+
+if cmd == "carpetloopgoto" then
+for i,_ in pairs(loopgotoplayer) do
+table.remove(loopgotoplayer,i)
+end
+Who = string.sub(msg, space + 1)
+loopgototarget = getPlayer(Who)[1]
+table.insert(loopgotoplayer,loopgototarget.Name)
+getgenv().lg = rs.Heartbeat:Connect(function()
+for _,v in pairs(loopgotoplayer) do
+if game.Players:FindFirstChild(v) then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[v].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.Angles(1.5,0,0)
+end
+end
+end)
+end
+
+if cmd == "uncarpetloopgoto" then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+getgenv().lg:Disconnect()
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+for i,_ in pairs(loopgotoplayer) do
+table.remove(loopgotoplayer,i)
+end
+end
+
+if cmd == "lay" then
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
+wait(0.2)
+for _,v in pairs(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks()) do
+v:Stop()
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(1.5,0,0)
+end
+
+if cmd == "sit" then
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
+end
+
+if cmd == "loopgoto" then
+Who = string.sub(msg, space + 1)
+loopgototarget = getPlayer(Who)[1]
+getgenv().lg = rs.Heartbeat:Connect(function()
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = loopgototarget.Character:WaitForChild("HumanoidRootPart").CFrame
+end)
+end
+
+if cmd == "unloopgoto" then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+getgenv().lg:Disconnect()
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+for i,_ in pairs(loopgotoplayer) do
+table.remove(loopgotoplayer,i)
+end
+end
+
+
+if cmd == "speed" then
+speed = string.sub(msg, space + 1)
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = speed
+end
+
+if cmd == "cmds" then
+cmdgui()
+end
+
+if cmd == "goto" then
+Who = string.sub(msg, space + 1)
+target = getPlayer(Who)[1]
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+end
+
+if cmd == "plugins" then
+local plugingui = Instance.new("ScreenGui")                
+local Frame = Instance.new("Frame")
+local TextButton = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local UICorner_2 = Instance.new("UICorner")
+local TextBox = Instance.new("TextBox")
+local UICorner_3 = Instance.new("UICorner")
+local add = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+
+--Properties:                
+plugingui.Name = "plugingui"
+plugingui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+plugingui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Draggable = true
+Frame.Selectable = true
+Frame.Active = true
+Frame.Parent = plugingui
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BackgroundTransparency = 0.500
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.300717473, 0, 0.504587173, 0)
+Frame.Size = UDim2.new(0, 383, 0, 191)
+TextButton.Parent = Frame
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.840731084, 0, -0.261780113, 0)
+TextButton.Size = UDim2.new(0, 61, 0, 50)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "X"
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextWrapped = true
+
+UICorner.Parent = TextButton
+
+UICorner_2.Parent = Frame
+
+TextBox.Parent = Frame
+TextBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.BackgroundTransparency = 0.500
+TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.BorderSizePixel = 0
+TextBox.Position = UDim2.new(0.237597913, 0, 0.251308888, 0)
+TextBox.Size = UDim2.new(0, 200, 0, 50)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.Text = "FileName"
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.TextScaled = true
+TextBox.TextSize = 14.000
+TextBox.TextWrapped = true
+
+UICorner_3.Parent = TextBox
+
+add.Name = "add"
+add.Parent = Frame
+add.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+add.BackgroundTransparency = 0.500
+add.BorderColor3 = Color3.fromRGB(0, 0, 0)
+add.BorderSizePixel = 0
+add.Position = UDim2.new(0.237597913, 0, 0.63874346, 0)
+add.Size = UDim2.new(0, 200, 0, 50)
+add.Font = Enum.Font.SourceSans
+add.Text = "Add plugin"
+add.TextColor3 = Color3.fromRGB(255, 255, 255)
+add.TextScaled = true
+add.TextSize = 14.000
+add.TextWrapped = true
+
+UICorner_4.Parent = add
+
+local function WZQVP_fake_script() -- TextButton.Script 
+local script = Instance.new('Script', TextButton)
+
+script.Parent.MouseButton1Click:Connect(function()
+plugingui:Destroy()
+end)
+end
+coroutine.wrap(WZQVP_fake_script)()
+local function UVEZVZB_fake_script() -- add.Script 
+local script = Instance.new('Script', add)
+
+script.Parent.MouseButton1Click:Connect(function()
+plug = script.Parent.Parent.TextBox.Text
+loadplugin(plug)
+table.insert(plugins, plug)
+createnotification("Plugins","Added plugin: "..plug.."",5)
+end)
+end
+coroutine.wrap(UVEZVZB_fake_script)()
+end
+
+end
+end)
+
+d1 = game.Players.PlayerRemoving:connect(function(plr)
+if plr.Name == x.Name then
+d:Disconnect()
+d1:Disconnect()       
+end
+end)
+return {d,d1}
+end
+
+veryepictrol(game.Players.LocalPlayer)
+
+
+
+local cmdbar = Instance.new("ScreenGui")
+local TextBox = Instance.new("TextBox")
+cmdbar.Name = "cmd bar"
+cmdbar.Enabled = false
+cmdbar.ResetOnSpawn = false
+cmdbar.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+cmdbar.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+TextBox.Parent = cmdbar
+TextBox.AnchorPoint = Vector2.new(0.5, 0.5)
+TextBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.BackgroundTransparency = 1
+TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.BorderSizePixel = 0
+TextBox.Position = UDim2.new(0.5, 0, 0.8, 0)
+TextBox.Size = UDim2.new(0, 300, 0, 50)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.Text = ""
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.TextScaled = true
+TextBox.TextSize = 14.000
+TextBox.TextWrapped = true
+
+function hide()
+task.spawn(function()
+e = game.TweenService:Create(TextBox,TweenInfo.new(0.25),{Transparency = 1})
+e:Play()
+e.Completed:Wait()
+cmdbar.Enabled = false
+end)
+end
+
+TextBox.FocusLost:Connect(function(eP,inp)
+hide()
+if eP then
+local txt = TextBox.ContentText
+local args = txt:split(" ")
+local cmd = args[1]
+print(cmd)
+
+TextBox.Text = ""
+
+if cmd == "goto" then
+Who = args[2]
+target = getPlayer(Who)[1]
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+end
+
+if cmd == "plugins" then
+local plugingui = Instance.new("ScreenGui")                
+local Frame = Instance.new("Frame")
+local TextButton = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local UICorner_2 = Instance.new("UICorner")
+local TextBox = Instance.new("TextBox")
+local UICorner_3 = Instance.new("UICorner")
+local add = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+
+--Properties:                
+plugingui.Name = "plugingui"
+plugingui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+plugingui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Draggable = true
+Frame.Selectable = true
+Frame.Active = true
+Frame.Parent = plugingui
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BackgroundTransparency = 0.500
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.300717473, 0, 0.504587173, 0)
+Frame.Size = UDim2.new(0, 383, 0, 191)
+TextButton.Parent = Frame
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.840731084, 0, -0.261780113, 0)
+TextButton.Size = UDim2.new(0, 61, 0, 50)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "X"
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextWrapped = true
+
+UICorner.Parent = TextButton
+
+UICorner_2.Parent = Frame
+
+TextBox.Parent = Frame
+TextBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.BackgroundTransparency = 0.500
+TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.BorderSizePixel = 0
+TextBox.Position = UDim2.new(0.237597913, 0, 0.251308888, 0)
+TextBox.Size = UDim2.new(0, 200, 0, 50)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.Text = "FileName"
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.TextScaled = true
+TextBox.TextSize = 14.000
+TextBox.TextWrapped = true
+
+UICorner_3.Parent = TextBox
+
+add.Name = "add"
+add.Parent = Frame
+add.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+add.BackgroundTransparency = 0.500
+add.BorderColor3 = Color3.fromRGB(0, 0, 0)
+add.BorderSizePixel = 0
+add.Position = UDim2.new(0.237597913, 0, 0.63874346, 0)
+add.Size = UDim2.new(0, 200, 0, 50)
+add.Font = Enum.Font.SourceSans
+add.Text = "Add plugin"
+add.TextColor3 = Color3.fromRGB(255, 255, 255)
+add.TextScaled = true
+add.TextSize = 14.000
+add.TextWrapped = true
+
+UICorner_4.Parent = add
+
+local function WZQVP_fake_script() -- TextButton.Script 
+local script = Instance.new('Script', TextButton)
+
+script.Parent.MouseButton1Click:Connect(function()
+plugingui:Destroy()
+end)
+end
+coroutine.wrap(WZQVP_fake_script)()
+local function UVEZVZB_fake_script() -- add.Script 
+local script = Instance.new('Script', add)
+
+script.Parent.MouseButton1Click:Connect(function()
+plug = script.Parent.Parent.TextBox.Text
+loadplugin(plug)
+table.insert(plugins, plug)
+createnotification("Plugins","Added plugin: "..plug.."",5)
+end)
+end
+coroutine.wrap(UVEZVZB_fake_script)()
+end
+
+if cmd == "cmds" then
+cmdgui()
+end
+
+if cmd == "loopgoto" then
+for i,_ in pairs(loopgotoplayer) do
+table.remove(loopgotoplayer,i)
+end
+Who = args[2]
+loopgototarget = getPlayer(Who)[1]
+table.insert(loopgotoplayer,loopgototarget.Name)
+getgenv().lg = rs.Heartbeat:Connect(function()
+for _,v in pairs(loopgotoplayer) do
+if game.Players:FindFirstChild(v) then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[v].Character:WaitForChild("HumanoidRootPart").CFrame
+end
+end
+end)
+end
+
+if cmd == "unloopgoto" then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+getgenv().lg:Disconnect()
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+for i,_ in pairs(loopgotoplayer) do
+table.remove(loopgotoplayer,i)
+end
+end
+
+if cmd == "speed" then
+speed = args[2]
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = speed
+end
+
+if cmd == "sit" then
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
+end
+
+if cmd == "lay" then
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
+wait(0.2)
+for _,v in pairs(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks()) do
+v:Stop()
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.Angles(1.5,0,0)
+end
+
+if cmd == "carpetloopgoto" then
+for i,_ in pairs(loopgotoplayer) do
+table.remove(loopgotoplayer,i)
+end
+Who = args[2]
+loopgototarget = getPlayer(Who)[1]
+table.insert(loopgotoplayer,loopgototarget.Name)
+getgenv().lg = rs.Heartbeat:Connect(function()
+for _,v in pairs(loopgotoplayer) do
+if game.Players:FindFirstChild(v) then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[v].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.Angles(1.5,0,0)
+end
+end
+end)
+end
+
+if cmd == "uncarpetloopgoto" then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+getgenv().lg:Disconnect()
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+for i,_ in pairs(loopgotoplayer) do
+table.remove(loopgotoplayer,i)
+end
+end
+
+end
+end)
+
+
+function focus()
+wait()
+cmdbar.Enabled = true
+e = game.TweenService:Create(TextBox,TweenInfo.new(0.25),{Transparency = 0.5})
+e:Play()
+TextBox:CaptureFocus()
+end
+
+local UIS = game:GetService("UserInputService")
+UIS.InputBegan:Connect(function(input,chting)
+if input.KeyCode == getgenv().cmdbarprefix and not chting then
+focus()
+end
+end)
