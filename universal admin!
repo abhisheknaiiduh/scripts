@@ -4,6 +4,66 @@ if getgenv().executed == true then warn("\nadmin is already running\nadmin is al
 
 getgenv().executed = true
 
+
+function notify(title,Warn,time)
+local noti = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local main = Instance.new("TextLabel")
+local UICorner_2 = Instance.new("UICorner")
+local warn = Instance.new("TextLabel")
+local UICorner_3 = Instance.new("UICorner")
+noti.Name = "noti"
+noti.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+noti.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Frame.Parent = noti
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BackgroundTransparency = 0.500
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(1, -10, 0.948776782, -116)
+Frame.Size = UDim2.new(0, 269, 0, 133)
+UICorner.Parent = Frame
+main.Name = "main"
+main.Parent = Frame
+main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+main.BackgroundTransparency = 0.500
+main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+main.BorderSizePixel = 0
+main.Size = UDim2.new(0, 200, 0, 50)
+main.Font = Enum.Font.SourceSans
+main.Text = title
+main.TextColor3 = Color3.fromRGB(255, 255, 255)
+main.TextScaled = true
+main.TextSize = 14.000
+main.TextWrapped = true
+UICorner_2.Parent = main
+warn.Name = "warn"
+warn.Parent = Frame
+warn.Text = Warn
+warn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+warn.BackgroundTransparency = 0.500
+warn.BorderColor3 = Color3.fromRGB(0, 0, 0)
+warn.BorderSizePixel = 0
+warn.Position = UDim2.new(0, 0, 0.556391001, 0)
+warn.Size = UDim2.new(0, 200, 0, 50)
+warn.Font = Enum.Font.SourceSans
+warn.TextColor3 = Color3.fromRGB(255, 255, 255)
+warn.TextScaled = true
+warn.TextSize = 14.000
+warn.TextWrapped = true
+UICorner_3.Parent = warn
+twe = game.TweenService:Create(Frame,TweenInfo.new(0.25),{Position = UDim2.new(1, -200, 0.948776782, -116)})
+twe:Play()
+twe.Completed:Wait()
+wait(time)
+twe = game.TweenService:Create(Frame,TweenInfo.new(0.25),{Position = UDim2.new(1, -10, 0.948776782, -116)})
+twe:Play()
+twe.Completed:Wait(0.5)
+Frame:Destroy()
+end
+
+
 local rs = game.RunService
 
 local loopgotoplayer = {}
@@ -254,6 +314,7 @@ end
 if cmd == "discord" then
 setclipboard("https://discord.gg/vWPzwRj2AE")
 print("copied discord")
+notify("Discord","Copied Link!",10)
 end
 
 if cmd == "carpetloopgoto" then
@@ -661,6 +722,7 @@ end
 if cmd == "discord" then
 setclipboard("https://discord.gg/vWPzwRj2AE")
 print("copied discord")
+notify("Discord","Copied Link!",10)
 end
 
 end
