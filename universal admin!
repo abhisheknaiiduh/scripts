@@ -1,4 +1,5 @@
-
+getgenv().cmdbarprefix = Enum.KeyCode.Minus -- https://create.roblox.com/docs/en-us/reference/engine/enums/KeyCode
+getgenv().selectedprefix = ">" -- use ;, : , / , etc.
 
 
 
@@ -253,6 +254,28 @@ else
 loadstring(readfile("Revs admin/Plugins/"..v..".lua"))()
 end
 end
+end
+
+if cmd == "discord" then
+requestz = http_request or request or HttpPost or syn.request or fluxus.request
+--credits: https://v3rmillion.net/showthread.php?tid=1143287
+requestz({
+Url = "http://127.0.0.1:6463/rpc?v=1",
+Method = "POST",
+Headers = {
+["Content-Type"] = "application/json",
+["origin"] = "https://discord.com",
+},
+Body = game:GetService("HttpService"):JSONEncode(
+{
+["args"] = {
+["code"] = "4xs56VJC8m",
+},
+["cmd"] = "INVITE_BROWSER",
+["nonce"] = "."
+})
+})
+------------------------------
 end
 
 if cmd == "carpetloopgoto" then
@@ -655,6 +678,28 @@ game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = V
 for i,_ in pairs(loopgotoplayer) do
 table.remove(loopgotoplayer,i)
 end
+end
+
+if cmd == "discord" then
+requestz = http_request or request or HttpPost or syn.request or fluxus.request
+--credits: https://v3rmillion.net/showthread.php?tid=1143287
+requestz({
+Url = "http://127.0.0.1:6463/rpc?v=1",
+Method = "POST",
+Headers = {
+["Content-Type"] = "application/json",
+["origin"] = "https://discord.com",
+},
+Body = game:GetService("HttpService"):JSONEncode(
+{
+["args"] = {
+["code"] = "4xs56VJC8m",
+},
+["cmd"] = "INVITE_BROWSER",
+["nonce"] = "."
+})
+})
+------------------------------
 end
 
 end
