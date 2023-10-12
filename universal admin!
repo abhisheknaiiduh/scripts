@@ -82,6 +82,7 @@ local cmdslist = {
 "lay",
 "carpetloopgoto (plr)",
 "uncarpetloopgoto",
+"discord",
 }
 
 local plugins = {}
@@ -314,7 +315,7 @@ end
 if cmd == "discord" then
 setclipboard("https://discord.gg/vWPzwRj2AE")
 print("copied discord")
-notify("Discord","Copied Link!",10)
+notify("Notification","Copied Link!",10)
 end
 
 if cmd == "carpetloopgoto" then
@@ -722,7 +723,7 @@ end
 if cmd == "discord" then
 setclipboard("https://discord.gg/vWPzwRj2AE")
 print("copied discord")
-notify("Discord","Copied Link!",10)
+notify("Notifcation","Copied Link!",10)
 end
 
 end
