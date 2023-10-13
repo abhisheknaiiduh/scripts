@@ -64,7 +64,7 @@ twe.Completed:Wait(0.5)
 Frame:Destroy()
 end
 
-notify("Rev's Admin","Loaded!",10)
+notify("Rev's Admin","Loading..!",10)
 
 local rs = game.RunService
 
@@ -791,3 +791,7 @@ request = http_request or request or HttpPost or syn.request
 local zxczxc = {Url = url, Body = newdata, Method = "POST", Headers = headers}
 request(zxczxc)
 end)
+
+repeat wait() until game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("cmd bar",true)
+if game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("Noti") then game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("Noti"):Destroy() end
+notify("Rev's Admin","Loaded!",10)
