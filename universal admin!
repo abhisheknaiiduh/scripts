@@ -138,7 +138,6 @@ local plugins = {}
 
 function loadplugin(file)
 if isfile("Revs admin/Plugins/"..file.."") or isfile("Revs admin/Plugins/"..file..".txt") or isfile("Revs admin/Plugins/"..file..".lua") then
-newtxtlabel(file)
 if not isfile("Revs admin/auto/Plugins.txt") then
 writefile("Revs admin/auto/Plugins.txt",file)
 else
@@ -625,12 +624,12 @@ Who = args[2]
 target = getPlayer(Who)[1]
 end
 
-if isfile("sex admin/Plugins/"..v.."") then
-loadstring(readfile("sex admin/Plugins/"..v..""))()
-elseif isfile("sex admin/Plugins/"..v..".txt") then
-loadstring(readfile("sex admin/Plugins/"..v..".txt"))()
+if isfile("Revs admin/Plugins/"..v.."") then
+loadstring(readfile("Revs admin/Plugins/"..v..""))()
+elseif isfile("Revs admin/Plugins/"..v..".txt") then
+loadstring(readfile("Revs admin/Plugins/"..v..".txt"))()
 else
-loadstring(readfile("sex admin/Plugins/"..v..".lua"))()
+loadstring(readfile("Revs admin/Plugins/"..v..".lua"))()
 end
 end
 end
