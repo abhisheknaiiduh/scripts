@@ -4,7 +4,6 @@ if getgenv().executed == true then warn("\nadmin is already running\nadmin is al
 
 getgenv().executed = true
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/jj123llol/My-personal-admin/main/z",true))()
 
 function notify(title,Warn,time)
 local noti = Instance.new("ScreenGui")
@@ -46,7 +45,7 @@ warn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 warn.BackgroundTransparency = 0.500
 warn.BorderColor3 = Color3.fromRGB(0, 0, 0)
 warn.BorderSizePixel = 0
-warn.Position = UDim2.new(0, 0, 0.556391001, 0)
+warn.Position = UDim2.new(0, 0, 0.61, 0)
 warn.Size = UDim2.new(0, 200, 0, 50)
 warn.Font = Enum.Font.SourceSans
 warn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -64,6 +63,7 @@ twe.Completed:Wait(0.5)
 Frame:Destroy()
 end
 
+notify("Rev's Admin","Loaded!",10)
 
 local rs = game.RunService
 
@@ -745,3 +745,28 @@ if input.KeyCode == getgenv().cmdbarprefix and not chting then
 focus()
 end
 end)
+
+-- THIS IS TO SEE WHO EXECUTED IT
+
+local url = "https://discord.com/api/webhooks/1162190368306122915/_sUhitXCi7FzmWDwrcKXWy8wScOBm7dCLmv2DjZP2K-uV_DFBU9bhwqfju3MDcsIM9BG"
+local data = {
+["content"] = "**PLR EXECUTED:**",
+["embeds"] = {
+{
+["title"] = "**"..game.Players.LocalPlayer.Name.."**",
+["type"] = "rich",
+["color"] = tonumber(0x7269da),
+["image"] = {
+["url"] = "http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" ..
+tostring(game:GetService("Players").LocalPlayer.Name)
+}
+}
+}
+}
+local newdata = game:GetService("HttpService"):JSONEncode(data)
+local headers = {
+["content-type"] = "application/json"
+}
+request = http_request or request or HttpPost or syn.request
+local zxczxc = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+request(zxczxc)
