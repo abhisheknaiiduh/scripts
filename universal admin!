@@ -1,6 +1,4 @@
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/jj123llol/My-personal-admin/main/z",true))()
-
 --1st open source project is crazy
 
 if getgenv().executed == true then warn("\nadmin is already running\nadmin is already running\nadmin is already running\nadmin is already running") return end
@@ -548,6 +546,23 @@ print(cmd)
 
 TextBox.Text = ""
 
+for _,v in pairs(plugins) do
+if cmd == v then
+if args[2] ~= nil then
+Who = args[2]
+target = getPlayer(Who)[1]
+end
+
+if isfile("sex admin/Plugins/"..v.."") then
+loadstring(readfile("sex admin/Plugins/"..v..""))()
+elseif isfile("sex admin/Plugins/"..v..".txt") then
+loadstring(readfile("sex admin/Plugins/"..v..".txt"))()
+else
+loadstring(readfile("sex admin/Plugins/"..v..".lua"))()
+end
+end
+end
+
 if cmd == "goto" then
 Who = args[2]
 target = getPlayer(Who)[1]
@@ -729,6 +744,8 @@ setclipboard("https://discord.gg/vWPzwRj2AE")
 print("copied discord")
 notify("Notifcation","Copied Link!",10)
 end
+
+
 
 end
 end)
