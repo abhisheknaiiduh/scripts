@@ -5,11 +5,20 @@ if getgenv().executed == true then warn("\nadmin is already running\nadmin is al
 
 getgenv().executed = true
 
+if game:GetService("Players").LocalPlayer.PlayerScripts:FindFirstChild("ChatScript",true) then
 local ChatMain = require(game:GetService("Players").LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-
 local function bypass()
 ChatMain.MessagePosted:fire("dffhdfshfd"..math.random(100000,1000000))
 ChatMain.MessagesChanged:fire(math.random(100000,1000000))
+end
+end
+
+function chat(msg)
+if game:GetService("Players").LocalPlayer.PlayerScripts:FindFirstChild("ChatScript",true) then
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg,"All")
+else
+game.TextChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(msg)
+end
 end
 
 local pickUpLines = {
@@ -919,15 +928,8 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.Hu
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position,target.Character.HumanoidRootPart.Position) 
 wait(2)
 local pickUpLine = pickUpLines[math.random(#pickUpLines)]
-print(pickUpLine)
-
-local args = {
-    [1] = pickUpLine,
-    [2] = "All"
-}
-
-game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
-bypass()
+chat(pickUpLine)
+if game:GetService("Players").LocalPlayer.PlayerScripts:FindFirstChild("ChatScript",true) then bypass() end
 end
 end
 
