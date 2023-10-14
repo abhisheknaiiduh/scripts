@@ -479,6 +479,7 @@ table.insert(loopgotoplayer,loopgototarget.Name)
 getgenv().lg = rs.Heartbeat:Connect(function()
 for _,v in pairs(loopgotoplayer) do
 if game.Players:FindFirstChild(v) then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[v].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.Angles(1.5,0,0)
 end
 end
@@ -508,10 +509,19 @@ game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
 end
 
 if cmd == "loopgoto" then
-Who = string.sub(msg, space + 1)
+for i,_ in pairs(loopgotoplayer) do
+table.remove(loopgotoplayer,i)
+end
+Who = args[2]
 loopgototarget = getPlayer(Who)[1]
+table.insert(loopgotoplayer,loopgototarget.Name)
 getgenv().lg = rs.Heartbeat:Connect(function()
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = loopgototarget.Character:WaitForChild("HumanoidRootPart").CFrame
+for _,v in pairs(loopgotoplayer) do
+if game.Players:FindFirstChild(v) then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[v].Character:WaitForChild("HumanoidRootPart").CFrame
+end
+end
 end)
 end
 
@@ -537,7 +547,9 @@ end
 if cmd == "goto" then
 Who = string.sub(msg, space + 1)
 target = getPlayer(Who)[1]
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
 end
 
 if cmd == "plugins" then
@@ -715,7 +727,9 @@ end
 if cmd == "goto" then
 Who = args[2]
 target = getPlayer(Who)[1]
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
 end
 
 if cmd == "plugins" then
@@ -830,6 +844,7 @@ table.insert(loopgotoplayer,loopgototarget.Name)
 getgenv().lg = rs.Heartbeat:Connect(function()
 for _,v in pairs(loopgotoplayer) do
 if game.Players:FindFirstChild(v) then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[v].Character:WaitForChild("HumanoidRootPart").CFrame
 end
 end
@@ -873,6 +888,7 @@ table.insert(loopgotoplayer,loopgototarget.Name)
 getgenv().lg = rs.Heartbeat:Connect(function()
 for _,v in pairs(loopgotoplayer) do
 if game.Players:FindFirstChild(v) then
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game.Players[v].Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.Angles(1.5,0,0)
 end
 end
