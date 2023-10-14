@@ -512,7 +512,7 @@ if cmd == "loopgoto" then
 for i,_ in pairs(loopgotoplayer) do
 table.remove(loopgotoplayer,i)
 end
-string.sub(msg, space + 1)
+Who = string.sub(msg, space + 1)
 loopgototarget = getPlayer(Who)[1]
 table.insert(loopgotoplayer,loopgototarget.Name)
 getgenv().lg = rs.Heartbeat:Connect(function()
