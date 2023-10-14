@@ -360,6 +360,46 @@ end
 end
 end
 
+
+if cmd == "dupetools" then
+times = string.sub(msg, space + 1)
+oldpos = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
+for i = 1,times do
+wait(0.1)
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(math.random(0,10),99999999,math.random(0,10))
+wait(0.5)
+
+local tools = {}
+
+for _, tool in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if tool.CanBeDropped == true then
+        tool.Parent = game.Players.LocalPlayer.Character
+        table.insert(tools, tool)
+    end
+end
+
+game.Players.LocalPlayer.Character:BreakJoints()
+
+task.wait(0.5)
+
+for _, tool in pairs(tools) do
+    tool.Parent = workspace    
+end
+
+game.Players.LocalPlayer.CharacterAdded:wait()
+
+for _, tool in pairs(tools) do
+    game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):EquipTool(tool)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
+    game.Players.LocalPlayer.Character:WaitForChild(tool.Name).Parent = game.Players.LocalPlayer.Backpack
+end
+end
+
+for i,_ in pairs(tools) do
+table.remove(tools,i)
+end
+end
+
 if cmd == "flirt" then
 getgenv().Flirt = true
 local Who = string.sub(msg, space + 1)
@@ -841,6 +881,44 @@ if cmd == "unflirt" then
 getgenv().Flirt = false
 end
 
+if cmd == "dupetools" then
+times = args[2]
+oldpos = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
+for i = 1,times do
+wait(0.1)
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(math.random(0,10),99999999,math.random(0,10))
+wait(0.5)
+
+local tools = {}
+
+for _, tool in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if tool.CanBeDropped == true then
+        tool.Parent = game.Players.LocalPlayer.Character
+        table.insert(tools, tool)
+    end
+end
+
+game.Players.LocalPlayer.Character:BreakJoints()
+
+task.wait(0.5)
+
+for _, tool in pairs(tools) do
+    tool.Parent = workspace    
+end
+
+game.Players.LocalPlayer.CharacterAdded:wait()
+
+for _, tool in pairs(tools) do
+    game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):EquipTool(tool)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
+    game.Players.LocalPlayer.Character:WaitForChild(tool.Name).Parent = game.Players.LocalPlayer.Backpack
+end
+end
+
+for i,_ in pairs(tools) do
+table.remove(tools,i)
+end
+end
 
 end
 end)
@@ -860,6 +938,8 @@ if input.KeyCode == getgenv().cmdbarprefix and not chting then
 focus()
 end
 end)
+
+
 
 -- THIS IS TO SEE WHO EXECUTED IT, CREDITS: https://v3rmillion.net/showthread.php?tid=1022844
 task.spawn(function()
@@ -886,6 +966,7 @@ request = http_request or request or HttpPost or syn.request
 local zxczxc = {Url = url, Body = newdata, Method = "POST", Headers = headers}
 request(zxczxc)
 end)
+
 
 repeat wait() until game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("cmd bar",true)
 if game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("Noti") then game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("Noti"):Destroy() end
