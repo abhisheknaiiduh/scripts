@@ -132,6 +132,11 @@ local cmdslist = {
 "discord",
 "flirt",
 "unflirt",
+"dupetools (num)",
+"gfuck (plr)",
+"ungfuck",
+"suck (plr)",
+"unsuck",
 }
 
 local plugins = {}
@@ -360,6 +365,39 @@ end
 end
 end
 
+
+if cmd == "suck" then
+who = string.sub(msg, space + 1)
+target = getPlayer(who)[1]
+getgenv().suck = rs.Heartbeat:Connect(function()
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = (target.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.Angles(0,math.rad(180),0) + target.Character:WaitForChild("HumanoidRootPart").CFrame.LookVector * 0.8) - Vector3.new(0,3,0)
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+end)
+end
+
+if cmd == "unsuck" then
+if suck then
+suck:Disconnect()
+end
+end
+
+
+if cmd == "gfuck" then
+who = string.sub(msg, space + 1)
+target = getPlayer(who)[1]
+getgenv().fuck = rs.Heartbeat:Connect(function()
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = target.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.Angles(0,math.rad(180),0) + target.Character:WaitForChild("HumanoidRootPart").CFrame.LookVector * 0.8
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+end)
+end
+
+if cmd == "ungfuck" then
+if fuck then
+fuck:Disconnect()
+end
+end
 
 if cmd == "dupetools" then
 times = string.sub(msg, space + 1)
@@ -917,6 +955,40 @@ end
 
 for i,_ in pairs(tools) do
 table.remove(tools,i)
+end
+end
+
+
+if cmd == "suck" then
+who = args[2]
+target = getPlayer(who)[1]
+getgenv().suck = rs.Heartbeat:Connect(function()
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = (target.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.Angles(0,math.rad(180),0) + target.Character:WaitForChild("HumanoidRootPart").CFrame.LookVector * 0.8) - Vector3.new(0,3,0)
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+end)
+end
+
+if cmd == "unsuck" then
+if suck then
+suck:Disconnect()
+end
+end
+
+
+if cmd == "gfuck" then
+who = args[2]
+target = getPlayer(who)[1]
+getgenv().fuck = rs.Heartbeat:Connect(function()
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = true
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = target.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.Angles(0,math.rad(180),0) + target.Character:WaitForChild("HumanoidRootPart").CFrame.LookVector * 0.8
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+end)
+end
+
+if cmd == "ungfuck" then
+if fuck then
+fuck:Disconnect()
 end
 end
 
