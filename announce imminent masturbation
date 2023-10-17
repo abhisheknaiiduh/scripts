@@ -1,0 +1,25 @@
+if executed then return end
+getgenv().executed = true
+function chat(msg)
+if game:GetService("Players").LocalPlayer.PlayerScripts:FindFirstChild("ChatScript",true) then
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg,"All")
+else
+game.TextChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(msg)
+end
+end
+chat("I AM ANNOUNCING MY IMMINENT MASTXJURBATION.")
+wait(2)
+chat("I am aware that the announcement of imminent mastxjurbation has been a serious reocurring issue lately,")
+wait(2)
+chat("and I am here with my bottom-level social skills to ensure that it will only worsen.")
+wait(2)
+chat("I hope that this server full of mostly male members will appreciate the fact that I will soon be cuxjmmxjing, and offer me that coveted high-five that I so surely deserve")
+wait(2)
+chat("As the announcement of imminent mastxjurbation is NOT in the current ruleset, I will continue to toe this line.")
+wait(2)
+chat("Any and all action taken against me by the mod team will be considered extra judicial and I will retaliate by mobilizing my army of alts.")
+wait(2)
+chat("If any males want to provide me a high-five or emotial gratification, please do so. If any females wish to provide me snlexxjual gratification, ew.")
+wait(4)
+chat("Thank you, and please remember: I AM NOW MASXJTURXJBATING")
+getgenv().executed = false
